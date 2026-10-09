@@ -8,5 +8,5 @@ public interface IEventService
     bool DeleteEvent(int id);
     EventEntity? GetEvent(int id);
     List<EventEntity> GetEvents();
-    bool UpdateEventData(EventEntity eventData);
+    bool UpdateEvent(EventEntity eventData);
 }

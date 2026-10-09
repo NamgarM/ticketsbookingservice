@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FirstSprintProject.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace FirstSprintProject.Dtos;
 
 public class EventDto
 {
+
     [Required(ErrorMessage = "Id is required")]
     public int Id { get; set; }
     [Required(AllowEmptyStrings = false, ErrorMessage = "Title is required")]

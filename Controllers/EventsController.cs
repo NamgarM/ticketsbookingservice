@@ -11,6 +11,20 @@ namespace FirstSprintProject.Controllers;
 [Route("api/[controller]")]
 public class EventsController(IEventService _eventService) : ControllerBase 
 {
+    [HttpGet("/events")]
+    public ActionResult<List<EventDto>> GetAllEvents()
+    {
+        var eventsDtos = _eventService.GetEvents().Select(e => new EventDto{
+            Id = e.Id,
+            Title = e.Title,
+            Description = e.Description,
+            StartAt = e.StartAt,
+            EndAt = e.EndAt
+        }).ToList();
+
+        return new OkObjectResult(eventsDtos);
+    }
+
     [HttpGet("/events/{id:int}")]
     public ApiBaseResult GetEventById(int id)
     {
@@ -55,7 +69,7 @@ public class EventsController(IEventService _eventService) : ControllerBase
     public IActionResult PutEvent([FromBody] EventDto eventDto) 
     {
         var newEvent = new EventEntity(eventDto);
-        if (_eventService.UpdateEventData(newEvent))
+        if (_eventService.UpdateEvent(newEvent))
             return Ok($"Event with id {newEvent.Id} is updated");
 
         return NotFound($"Event with id {newEvent.Id} is not found, therefore, not updated");
@@ -68,6 +82,7 @@ public class EventsController(IEventService _eventService) : ControllerBase
         {
             return Ok($"Event with id {id} is deleted"); 
         }
+
         return NotFound($"Event with id {id} isn't found");
     }
 }
