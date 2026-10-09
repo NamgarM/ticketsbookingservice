@@ -1,11 +1,5 @@
 ﻿using System.Net;
-namespace FirstSprintProject;
-
-public class ApiResult<T> : ApiBaseResult
-{
-    // Возвращаемые данные метода
-    public required T Data { get; set; }
-}
+namespace FirstSprintProject.Dtos.Responses;
 
 public class ApiBaseResult
 {
