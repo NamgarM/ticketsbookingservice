@@ -46,13 +46,13 @@ API для создания и получения событий с валида
 
 
 
-\*\*Команда:\*\*
+Команда:
 
 ```bash
 
-curl -X POST 'http://localhost:5029/api/events' \\
+curl -X POST 'http://localhost:5029/api/events' 
 
-\-H 'Content-Type: application/json' \\
+\-H 'Content-Type: application/json' 
 
 \-d '{
 
@@ -76,13 +76,29 @@ curl -X POST 'http://localhost:5029/api/events' \\
 
 Этот запрос должен упасть с ошибкой 400, так как сработает твой кастомный атрибут \[GreaterThan].
 
-Команда: curl -X POST 'http://localhost:5029/events' \\
+Команда: 
 
-&#x20; -H 'accept: \*/\*' \\
+```bash
 
-&#x20; -H 'Content-Type: application/json' \\
+curl -X POST 'http://localhost:5029/events'
 
-&#x20; -d '{"id": 105,"title":"Labour Day","description": "string", "startAt":"2027-05-01T18:00:00","endAt":"2027-05-01T10:00:00"}'
+\-H 'accept: \*/\*' 
+
+\-H 'Content-Type: application/json' 
+
+\-d '{
+
+"id": 105,
+
+"title": "Labour Day",
+
+"description": "string", 
+
+"startAt": "2027-05-01T18:00:00",
+
+"endAt": "2027-05-01T10:00:00"
+
+}'
 
 
 
@@ -92,13 +108,29 @@ curl -X POST 'http://localhost:5029/api/events' \\
 
 \### ❌ Ошибка валидации: пустое название Проверяет работу атрибута \[Required].
 
-Команда: curl -X POST 'http://localhost:5029/events' \\
+Команда: 
 
-&#x20; -H 'accept: \*/\*' \\
+```bash
 
-&#x20; -H 'Content-Type: application/json' \\
+curl -X POST 'http://localhost:5029/events' 
 
-&#x20; -d '{"id": 105,"title":"","description": "string","startAt":"2027-05-01T00:00:00","endAt":"2027-05-02T00:00:00"}'
+\-H 'accept: \*/\*' 
+
+\-H 'Content-Type: application/json' 
+
+\-d '{
+
+"id": 105,
+
+"title":"",
+
+"description": "string",
+
+"startAt":"2027-05-01T00:00:00",
+
+"endAt":"2027-05-02T00:00:00"
+
+}'
 
 
 
@@ -108,9 +140,15 @@ curl -X POST 'http://localhost:5029/api/events' \\
 
 \### ✅ Получение списка событий
 
-Команда: curl -X GET 'http://localhost:5029/events' \\
+Команда: 
 
-&#x20; -H 'accept: \*/\*'
+```bash
+
+curl -X GET 'http://localhost:5029/events' 
+
+\-H 'accept: \*/\*'
+
+
 
 Ожидаемый ответ: 200 OK со списком событий в формате DTO (без лишних полей вроде IsDeleted или RowVersion).
 
