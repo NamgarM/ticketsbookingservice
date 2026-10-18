@@ -11,7 +11,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddProblemDetails();
 
-var app = builder.Build(); 
+var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();

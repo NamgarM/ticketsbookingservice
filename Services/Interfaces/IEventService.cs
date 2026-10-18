@@ -4,9 +4,9 @@ namespace FirstSprintProject.Services.Interfaces;
 
 public interface IEventService
 {
-    bool AddEvent(EventEntity newEvent);
+    bool AddEvent(Event newEvent);
     bool DeleteEvent(int id);
-    EventEntity? GetEvent(int id);
-    List<EventEntity> GetEvents();
-    bool UpdateEvent(EventEntity eventData);
+    Event? GetEvent(int id);
+    List<Event> GetEvents();
+    bool UpdateEvent(Event eventData);
 }

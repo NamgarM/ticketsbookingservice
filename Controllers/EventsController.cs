@@ -9,15 +9,16 @@ namespace FirstSprintProject.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class EventsController(IEventService _eventService) : ControllerBase 
+public class EventsController(IEventService _eventService) : ControllerBase
 {
     [HttpGet("/events")]
     public ActionResult<List<EventDto>> GetAllEvents()
     {
-        var eventsDtos = _eventService.GetEvents().Select(e => new EventDto{
+        var eventsDtos = _eventService.GetEvents().Select(e => new EventDto
+        {
             Id = e.Id,
-            Title = e.Title,
-            Description = e.Description,
+            Title = e.Title ?? string.Empty,
+            Description = e.Description ?? string.Empty,
             StartAt = e.StartAt,
             EndAt = e.EndAt
         }).ToList();
@@ -32,12 +33,12 @@ public class EventsController(IEventService _eventService) : ControllerBase
         if (eventToGet != null)
         {
             return new ApiResult<EventDto>()
-            { 
+            {
                 Data = new EventDto()
-                { 
+                {
                     Id = eventToGet.Id,
-                    Title = eventToGet.Title,
-                    Description = eventToGet.Description,
+                    Title = eventToGet.Title ?? string.Empty,
+                    Description = eventToGet.Description ?? string.Empty,
                     StartAt = eventToGet.StartAt,
                     EndAt = eventToGet.EndAt
                 },
@@ -47,23 +48,23 @@ public class EventsController(IEventService _eventService) : ControllerBase
             };
         }
 
-        return Problem(detail: $"An event with id {id} doesn't exist in the databese", statusCode:StatusCodes.Status404NotFound, title: "Not Found");
+        return Problem(detail: $"An event with id {id} doesn't exist in the databese", statusCode: StatusCodes.Status404NotFound, title: "Not Found");
     }
 
     [HttpPost("/events")]
     public IActionResult PostEvent([FromBody] EventDto eventDto)
     {
-        var newEvent = new EventEntity(eventDto);
+        var newEvent = new Event(eventDto);
         if (_eventService.AddEvent(newEvent))
             return CreatedAtAction(nameof(PostEvent), new { id = newEvent.Id }, newEvent);
 
-        return Problem(detail: "The event is already existing", statusCode:StatusCodes.Status400BadRequest);
+        return Problem(detail: "The event is already existing", statusCode: StatusCodes.Status400BadRequest);
     }
 
     [HttpPut("/events/{id:int}")]
-    public IActionResult PutEvent([FromRoute] int id, [FromBody] EventDto eventDto) 
+    public IActionResult PutEvent([FromRoute] int id, [FromBody] EventDto eventDto)
     {
-        var newEvent = new EventEntity(id, eventDto);
+        var newEvent = new Event(id, eventDto);
         if (_eventService.UpdateEvent(newEvent))
             return Ok($"Event with id {newEvent.Id} is updated");
 
@@ -75,7 +76,7 @@ public class EventsController(IEventService _eventService) : ControllerBase
     {
         if (_eventService.DeleteEvent(id))
         {
-            return Ok($"Event with id {id} is deleted"); 
+            return Ok($"Event with id {id} is deleted");
         }
 
         return Problem(detail: $"Event with id {id} isn't found", statusCode: StatusCodes.Status404NotFound, title: "Not Found");
