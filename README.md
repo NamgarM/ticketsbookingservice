@@ -42,29 +42,35 @@ API для создания и получения событий с валида
 
 \### ✅ Успешное создание события
 
-Проверяет: наличие полей и логику `EndAt > StartAt`.
+
+
+Проверяет наличие полей и логику `EndAt > StartAt`.
 
 
 
-Команда:
+\*\*Команда:\*\*
+
+
 
 ```bash
 
-curl -X POST 'http://localhost:5029/api/events' 
+curl -X POST 'http://localhost:5029/events' \\
 
-\-H 'Content-Type: application/json' 
+&#x20; -H 'Content-Type: application/json' \\
 
-\-d '{
+&#x20; -d '{
 
-"title": "Labour Day",
+&#x20;   "title": "Labour Day",
 
-"description": "Празднование Дня труда",
+&#x20;   "description": "Празднование Дня труда",
 
-"startAt": "2027-05-01T10:00:00",
+&#x20;   "startAt": "2027-05-01T10:00:00",
 
-"endAt": "2027-05-02T18:00:00"
+&#x20;   "endAt": "2027-05-02T18:00:00"
 
-}' 
+&#x20; }'
+
+```
 
 
 
@@ -80,27 +86,25 @@ curl -X POST 'http://localhost:5029/api/events'
 
 ```bash
 
-curl -X POST 'http://localhost:5029/events'
+curl -X POST 'http://localhost:5029/events' \\ 
 
-\-H 'accept: \*/\*' 
+&#x20; -H 'accept: \*/\*'  \\
 
-\-H 'Content-Type: application/json' 
+&#x20; -H 'Content-Type: application/json' \\
 
-\-d '{
+&#x20; -d '{
 
-"id": 105,
+&#x20;   "title": "Labour Day",
 
-"title": "Labour Day",
+&#x20;   "description": "Празднование Дня труда",
 
-"description": "string", 
+&#x20;   "startAt": "2027-05-01T18:00:00",
 
-"startAt": "2027-05-01T18:00:00",
-
-"endAt": "2027-05-01T10:00:00"
+&#x20;   "endAt": "2027-05-01T10:00:00"
 
 }'
 
-
+```
 
 Ожидаемый ответ: 400 Bad Request с сообщением: "Дата окончания должна быть позже даты начала." в поле errors.
 
@@ -112,27 +116,25 @@ curl -X POST 'http://localhost:5029/events'
 
 ```bash
 
-curl -X POST 'http://localhost:5029/events' 
+curl -X POST 'http://localhost:5029/events' \\ 
 
-\-H 'accept: \*/\*' 
+&#x20; -H 'accept: \*/\*' \\
 
-\-H 'Content-Type: application/json' 
+&#x20; -H 'Content-Type: application/json' \\
 
-\-d '{
+&#x20; -d '{
 
-"id": 105,
+&#x20;   "title": "Labour Day",
 
-"title":"",
+&#x20;   "description": "Празднование Дня труда",
 
-"description": "string",
+&#x20;   "startAt": "2027-05-01T18:00:00",
 
-"startAt":"2027-05-01T00:00:00",
-
-"endAt":"2027-05-02T00:00:00"
+&#x20;   "endAt": "2027-05-01T10:00:00"
 
 }'
 
-
+```
 
 Ожидаемый ответ: 400 Bad Request с ошибкой про обязательное поле Title.
 
@@ -144,11 +146,11 @@ curl -X POST 'http://localhost:5029/events'
 
 ```bash
 
-curl -X GET 'http://localhost:5029/events' 
+curl -X GET 'http://localhost:5029/events' \\
 
-\-H 'accept: \*/\*'
+&#x20; -H 'accept: \*/\*' \\
 
-
+```
 
 Ожидаемый ответ: 200 OK со списком событий в формате DTO (без лишних полей вроде IsDeleted или RowVersion).
 
