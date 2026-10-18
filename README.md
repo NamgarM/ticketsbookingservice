@@ -42,9 +42,29 @@ API для создания и получения событий с валида
 
 \### ✅ Успешное создание события
 
-Проверяет: наличие полей и логику EndAt > StartAt.
+Проверяет: наличие полей и логику `EndAt > StartAt`.
 
-Команда: bash curl -X POST 'http://localhost:5029/events' \\ -H 'accept: \*/\*' \\ -H 'Content-Type: application / json'\\-d '{"id": 105,"title":"Labour Day","description": "string", "startAt":"2027-05-01T00:00:00","endAt":"2027-05-02T00:00:00"}'
+
+
+\*\*Команда:\*\*
+
+```bash
+
+curl -X POST 'http://localhost:5029/api/events' \\
+
+&#x20; -H 'Content-Type: application/json' \\
+
+&#x20; -d '{
+
+&#x20;   "title": "Labour Day",
+
+&#x20;   "description": "Празднование Дня труда",
+
+&#x20;   "startAt": "2027-05-01T10:00:00",
+
+&#x20;   "endAt": "2027-05-02T18:00:00"
+
+&#x20; }' 
 
 
 
