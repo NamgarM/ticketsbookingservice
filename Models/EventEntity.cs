@@ -19,6 +19,15 @@ public class EventEntity
         EndAt = endAt;
     }
 
+    public EventEntity(int id, EventDto eventDto)
+    {
+        Id = id;
+        Title = eventDto.Title;
+        Description = eventDto.Description;
+        StartAt = eventDto.StartAt.Value;
+        EndAt = eventDto.EndAt.Value;
+    }
+
     public EventEntity(EventDto eventDto)
     {
         Id = eventDto.Id;

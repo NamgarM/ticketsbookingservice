@@ -26,7 +26,7 @@ public class EventsController(IEventService _eventService) : ControllerBase
     }
 
     [HttpGet("/events/{id:int}")]
-    public ApiBaseResult GetEventById(int id)
+    public ActionResult<ApiResult<EventDto>> GetEventById(int id)
     {
         var eventToGet = _eventService.GetEvent(id);
         if (eventToGet != null)
@@ -47,12 +47,7 @@ public class EventsController(IEventService _eventService) : ControllerBase
             };
         }
 
-        return new()
-        { 
-            Success = false,
-            StatusCode= HttpStatusCode.NotFound,
-            Message = $"An avent with id {id} doesn't exist in the databese"
-        };
+        return Problem(detail: $"An event with id {id} doesn't exist in the databese", statusCode:StatusCodes.Status404NotFound, title: "Not Found");
     }
 
     [HttpPost("/events")]
@@ -60,19 +55,19 @@ public class EventsController(IEventService _eventService) : ControllerBase
     {
         var newEvent = new EventEntity(eventDto);
         if (_eventService.AddEvent(newEvent))
-            return CreatedAtAction(nameof(_eventService.AddEvent), new { id = newEvent.Id }, newEvent);
+            return CreatedAtAction(nameof(PostEvent), new { id = newEvent.Id }, newEvent);
 
-        return BadRequest("The event is already existing");
+        return Problem(detail: "The event is already existing", statusCode:StatusCodes.Status400BadRequest);
     }
 
     [HttpPut("/events/{id:int}")]
-    public IActionResult PutEvent([FromBody] EventDto eventDto) 
+    public IActionResult PutEvent([FromRoute] int id, [FromBody] EventDto eventDto) 
     {
-        var newEvent = new EventEntity(eventDto);
+        var newEvent = new EventEntity(id, eventDto);
         if (_eventService.UpdateEvent(newEvent))
             return Ok($"Event with id {newEvent.Id} is updated");
 
-        return NotFound($"Event with id {newEvent.Id} is not found, therefore, not updated");
+        return Problem(detail: $"Event with id {newEvent.Id} is not found, therefore, not updated", statusCode: StatusCodes.Status404NotFound, title: "Not Found");
     }
 
     [HttpDelete("/events/{id:int}")]
@@ -83,6 +78,6 @@ public class EventsController(IEventService _eventService) : ControllerBase
             return Ok($"Event with id {id} is deleted"); 
         }
 
-        return NotFound($"Event with id {id} isn't found");
+        return Problem(detail: $"Event with id {id} isn't found", statusCode: StatusCodes.Status404NotFound, title: "Not Found");
     }
 }
