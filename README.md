@@ -8,7 +8,7 @@ API для создания и получения событий с валида
 
 \## Технологии
 
-\- .NET 10
+\- \*\*.NET 10\*\*
 
 \- ASP.NET Core Web API
 
@@ -18,7 +18,7 @@ API для создания и получения событий с валида
 
 \## Требования для запуска
 
-\- Установленный .NET 10 SDK
+\- Установленный \*\*.NET 10 SDK\*\*
 
 \- Браузер или Postman/curl для тестирования
 
@@ -44,13 +44,7 @@ API для создания и получения событий с валида
 
 Проверяет: наличие полей и логику EndAt > StartAt.
 
-Команда: bash curl -X POST 'http://localhost:5029/events' \\
-
-&#x20; -H 'accept: \*/\*' \\
-
-&#x20; -H 'Content-Type: application/json' \\
-
-&#x20; -d '{"id": 105,"title":"Labour Day","description": "string", "startAt":"2027-05-01T00:00:00","endAt":"2027-05-02T00:00:00"}'
+Команда: bash curl -X POST 'http://localhost:5029/events' \\ -H 'accept: \*/\*' \\ -H 'Content-Type: application / json'\\-d '{"id": 105,"title":"Labour Day","description": "string", "startAt":"2027-05-01T00:00:00","endAt":"2027-05-02T00:00:00"}'
 
 
 
